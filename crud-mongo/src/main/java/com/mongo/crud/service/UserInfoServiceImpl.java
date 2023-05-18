@@ -32,12 +32,30 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo update(String id, UserInfo userInfo) {
+        UserInfo user = getById(id);
+
+        if(user != null) {
+            user.setName(userInfo.getName());
+            user.setEmail(userInfo.getEmail());
+            user.setPassword(userInfo.getPassword());
+            user.setAge(userInfo.getAge());
+
+            return repository.save(user);
+        }
+
         return null;
+    }
+
+    private boolean isCheckUserInfo(String id) {
+        UserInfo get = getById(id);
+        return get != null;
     }
 
     @Override
     public void deleteById(String id) {
-        repository.deleteById(id);
+        if(isCheckUserInfo(id))
+            repository.deleteById(id);
+        throw new RuntimeException("Not Found");
     }
 
     @Override

@@ -2,7 +2,7 @@
 spring:
   data:
     mongodb:
-      host: localhost         #spring-mongodb
+      host: localhost  # spring-mongo
       port: 27017
 
 server:
