@@ -62,4 +62,5 @@ public class UserInfoServiceImpl implements UserInfoService {
     public void deleteAll() {
         repository.deleteAll();
     }
+
 }
