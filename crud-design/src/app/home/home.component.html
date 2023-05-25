@@ -1,1 +1,29 @@
-<p>home works!</p>
+<div class="tableFixHead">
+  <table class="table table-result">
+    <thead class="table-header">
+      <tr>
+        <th scope="col">SL No.</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Age</th>
+        <th scope="col">Feature</th>
+        <th scope="col">Select <input type="checkbox" (change)="onCheckBoxAll($event)" ></th>
+      </tr>
+    </thead>
+    <tbody class="table-data">
+      <tr *ngFor="let user of userInfo; let i = index">
+        <td scope="row" >{{ i + 1 }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.age }}</td>
+        <td  class="d-flex gap-3">
+          <button [disabled]="!user.checkBox" class="btn btn-warning" (click)="onClickUpdate(user.userId,user)" > Update <i class="bi bi-arrow-up-circle"></i></button>
+          <button [disabled]="!user.checkBox" class="btn btn-danger" (click)="onClickDelete(user.userId)" > Delete <i class="bi bi-trash3-fill"></i></button>
+        </td>
+        <td>
+          <input type="checkbox" (change)="onCheckBoxClick($event, user)" [(ngModel)]="user.checkBox">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

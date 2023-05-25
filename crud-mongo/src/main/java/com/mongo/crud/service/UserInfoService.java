@@ -18,6 +18,8 @@ public interface UserInfoService {
 
     void deleteAll();
 
+    void delete();
+
 }
 
 

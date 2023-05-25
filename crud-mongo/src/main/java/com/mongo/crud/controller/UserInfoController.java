@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
+
 @RestController
 @RequestMapping("/user")
 public class UserInfoController {
@@ -46,5 +46,11 @@ public class UserInfoController {
     public void deleteAll() {
         service.deleteAll();
     }
+
+    @DeleteMapping("/delete")
+    public void delete() {
+        service.delete();
+    }
+
 
 }

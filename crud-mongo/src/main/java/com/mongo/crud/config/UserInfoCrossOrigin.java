@@ -10,7 +10,7 @@ public class UserInfoCrossOrigin implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/user/**")
-                .allowedOrigins("http://localhsot:4200")
+                .allowedOrigins("*")
                 .allowedHeaders("*")
                 .allowedMethods("*");
     }

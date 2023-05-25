@@ -5,8 +5,10 @@ import com.mongo.crud.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -16,7 +18,19 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public List<UserInfo> getAll() {
-        return repository.findAll();
+
+        List<UserInfo> all = repository.findAll();
+        List<UserInfo> perfect = all.parallelStream()
+                .filter((user) -> user.getIsActive())
+                .collect(Collectors.toList());
+
+//        for(UserInfo user : all) {
+//            if(user.getIsActive()) {
+//                perfect.add(user);
+//            }
+//        }
+
+        return perfect;
     }
 
     @Override
@@ -27,7 +41,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo create(UserInfo userInfo) {
         userInfo.setUserId(UUID.randomUUID().toString());
-        return userInfo;
+        userInfo.setIsActive(true);
+        return repository.save(userInfo);
     }
 
     @Override
@@ -46,20 +61,30 @@ public class UserInfoServiceImpl implements UserInfoService {
         return null;
     }
 
-    private boolean isCheckUserInfo(String id) {
-        UserInfo get = getById(id);
-        return get != null;
-    }
+//    private boolean isCheckUserInfo(String id) {
+//        UserInfo get = getById(id);
+//        return get != null;
+//    }
 
     @Override
     public void deleteById(String id) {
-        if(isCheckUserInfo(id))
-            repository.deleteById(id);
-        throw new RuntimeException("Not Found");
+        UserInfo user = getById(id);
+        if(user != null) {
+            user.setIsActive(false);
+        }
+        repository.save(user);
     }
 
     @Override
     public void deleteAll() {
+        List<UserInfo> getAll = getAll();
+        for(UserInfo user : getAll) {
+            user.setIsActive(false);
+        }
+    }
+
+    @Override
+    public void delete() {
         repository.deleteAll();
     }
 

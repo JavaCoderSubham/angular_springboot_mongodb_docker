@@ -3,6 +3,7 @@ spring:
   data:
     mongodb:
       host: localhost  # spring-mongo
+      database: user_info_test
       port: 27017
 
 server:

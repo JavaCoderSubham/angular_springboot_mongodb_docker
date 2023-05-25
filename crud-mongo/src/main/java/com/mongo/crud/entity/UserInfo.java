@@ -14,10 +14,16 @@ public class UserInfo {
     @Id
     private String userId;
     private String name;
-
     @Indexed(unique = true)
     private String email;
     private String password;
     private Integer age;
+    private Boolean isActive;
+    private Boolean checkBox;
+
 
 }
+
+
+
+
